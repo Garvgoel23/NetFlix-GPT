@@ -1,62 +1,80 @@
 import { checkValidData } from "../Utils/validate";
 import Header from "./Header";
 import { useRef, useState } from "react";
+
 const Login = () => {
-  const [isSignInForm, setIsSignInForm] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const email = useRef(null);
-  const password = useRef(null);
+  const [isSignInForm, setIsSignInForm] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const email = useRef<HTMLInputElement | null>(null);
+  const password = useRef<HTMLInputElement | null>(null);
+
   const handleButtonClick = () => {
+    if (!email.current || !password.current) return;
+
     const message = checkValidData(email.current.value, password.current.value);
+
     setErrorMessage(message);
   };
+
   const toggleSignInForm = () => {
-    setIsSignInForm(!isSignInForm);
+    setIsSignInForm((prev) => !prev);
   };
+
   return (
     <div>
       <Header />
+
       <div>
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/ce462eb6-4d7f-4c9a-9f61-93cb535a64fd/web/IN-en-20260105-TRIFECTA-perspective_5ec818ea-11f4-4bff-a409-8f36e9f9a1e2_medium.jpg"
-          alt="Logo"
+          alt="Background"
           className="w-full h-screen object-cover"
         />
       </div>
+
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col  bg-black bg-opacity-70 p-8 rounded-md"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col bg-black bg-opacity-70 p-8 rounded-md"
       >
         <h1 className="text-white text-3xl mb-4 font-bold">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
+
         {!isSignInForm && (
           <input
             type="text"
             placeholder="Full Name"
-            className="p-4 mb-6 w-96 rounded-md text-black bg-gray-500 "
+            className="p-4 mb-6 w-96 rounded-md text-black bg-gray-500"
           />
         )}
+
         <input
           ref={email}
           type="text"
           placeholder="Email Address"
-          className="p-4 mb-4 w-96 rounded-md text-black bg-gray-500 "
+          className="p-4 mb-4 w-96 rounded-md text-black bg-gray-500"
         />
 
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="p-4 mb-6 w-96 rounded-md text-black bg-gray-500 "
+          className="p-4 mb-6 w-96 rounded-md text-black bg-gray-500"
         />
-        <p className="text-red-500 font-bold text-lg py-2"> {errorMessage}</p>
+
+        {errorMessage && (
+          <p className="text-red-500 font-bold text-lg py-2">{errorMessage}</p>
+        )}
+
         <button
-          className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 cursor-pointer "
+          type="button"
+          className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300 cursor-pointer"
           onClick={handleButtonClick}
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
+
         <p
           className="text-white mt-4 cursor-pointer"
           onClick={toggleSignInForm}
