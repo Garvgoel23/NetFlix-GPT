@@ -1,7 +1,7 @@
 import { checkValidData } from "../Utils/validate";
 import Header from "./Header";
 import { use, useRef, useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
+  const name = useRef<HTMLInputElement | null>(null);
   const email = useRef<HTMLInputElement | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
 
@@ -29,8 +30,18 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current ? name.current.value : "User",
+            photoURL:
+              "https://media.licdn.com/dms/image/v2/D4E03AQENcNk1ycifXQ/profile-displayphoto-shrink_200_200/B4EZRaqdPVG0AY-/0/1736687867344?e=1770249600&v=beta&t=0cEGHeL3aazTlZw1nyeuYbrUYKkB-mss4qk9pQJIqo8",
+          })
+            .then(() => {
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
           console.log("Signed up:", user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -84,6 +95,7 @@ const Login = () => {
 
         {!isSignInForm && (
           <input
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="p-4 mb-6 w-96 rounded-md text-black bg-gray-500"

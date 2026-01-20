@@ -3,10 +3,13 @@ import { auth } from "../Utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../Utils/userSlice";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../Utils/appStore";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const user = useSelector((store: RootState) => store.user);
   const handleSignOut = () => {
     // Sign-out logic here
     signOut(auth)
@@ -27,19 +30,22 @@ const Header = () => {
         alt="Logo"
         className="size-20 w-44 ml-4 mt-4 object-contain"
       />
-      <div className=" flex p-2 space-x-4">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRKNdKRIgbcMkyGq1cQeq40IA-IQS-FDWnTQ&s"
-          alt="Usericon"
-          className="w-10 h-10 rounded cursor-pointer float-right mt-4 "
-        />
-        <button
-          onClick={handleSignOut}
-          className="bg-red-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700 transition duration-300 float-right mt-4 mr-4"
-        >
-          Sign Out
-        </button>
-      </div>
+
+      {user && (
+        <div className=" flex p-2 space-x-4">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRKNdKRIgbcMkyGq1cQeq40IA-IQS-FDWnTQ&s"
+            alt="Usericon"
+            className="w-10 h-10 rounded cursor-pointer float-right mt-4 "
+          />
+          <button
+            onClick={handleSignOut}
+            className="bg-red-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700 transition duration-300 float-right mt-4 mr-4"
+          >
+            Sign Out
+          </button>
+        </div>
+      )}
     </div>
   );
 };
