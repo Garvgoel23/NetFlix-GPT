@@ -5,6 +5,8 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../Utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Utils/userSlice";
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -12,7 +14,7 @@ const Login = () => {
   const name = useRef<HTMLInputElement | null>(null);
   const email = useRef<HTMLInputElement | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
-
+  const dispatch = useDispatch();
   const handleButtonClick = () => {
     if (!email.current || !password.current) return;
 
@@ -36,7 +38,16 @@ const Login = () => {
               "https://media.licdn.com/dms/image/v2/D4E03AQENcNk1ycifXQ/profile-displayphoto-shrink_200_200/B4EZRaqdPVG0AY-/0/1736687867344?e=1770249600&v=beta&t=0cEGHeL3aazTlZw1nyeuYbrUYKkB-mss4qk9pQJIqo8",
           })
             .then(() => {
-              navigate("/browse");
+              const { uid, email, displayName, photoURL } = auth.currentUser!;
+
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                }),
+              );
             })
             .catch((error) => {
               setErrorMessage(error.message);
