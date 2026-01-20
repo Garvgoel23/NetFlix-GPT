@@ -3,7 +3,7 @@ import Header from "./Header";
 import { useRef, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Utils/firebase";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -37,6 +37,20 @@ const Login = () => {
         });
     } else {
       // sign-in logic will go here
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value,
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + " - " + errorMessage);
+        });
     }
   };
 
