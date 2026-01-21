@@ -5,3 +5,12 @@ export const UserIcon =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRKNdKRIgbcMkyGq1cQeq40IA-IQS-FDWnTQ&s";
 export const BgLogo =
   "https://assets.nflxext.com/ffe/siteui/vlv3/ce462eb6-4d7f-4c9a-9f61-93cb535a64fd/web/IN-en-20260105-TRIFECTA-perspective_5ec818ea-11f4-4bff-a409-8f36e9f9a1e2_medium.jpg";
+
+export const API_Options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTA1M2I3NGZlMGZmNTY5MjBmMzNiMzcxZjdmMDI4OSIsIm5iZiI6MTc2ODk5Njc2NS42MjksInN1YiI6IjY5NzBiZjlkZTBlNzMzMGM0NDU1MjczYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PcEZpjwNGIt4VLOtorv4fKgaz2f1L1qNzcaICYMUwUg",
+  },
+};
