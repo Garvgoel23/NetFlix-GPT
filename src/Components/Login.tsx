@@ -6,6 +6,7 @@ import { auth } from "../Utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Utils/userSlice";
+import { BgLogo, UserIcon } from "../Utils/constants";
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -32,8 +33,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current ? name.current.value : "User",
-            photoURL:
-              "https://media.licdn.com/dms/image/v2/D4E03AQENcNk1ycifXQ/profile-displayphoto-shrink_200_200/B4EZRaqdPVG0AY-/0/1736687867344?e=1770249600&v=beta&t=0cEGHeL3aazTlZw1nyeuYbrUYKkB-mss4qk9pQJIqo8",
+            photoURL: UserIcon,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser!;
@@ -87,7 +87,7 @@ const Login = () => {
 
       <div>
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/ce462eb6-4d7f-4c9a-9f61-93cb535a64fd/web/IN-en-20260105-TRIFECTA-perspective_5ec818ea-11f4-4bff-a409-8f36e9f9a1e2_medium.jpg"
+          src={BgLogo}
           alt="Background"
           className="w-full h-screen object-cover"
         />
