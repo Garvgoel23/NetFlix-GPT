@@ -5,6 +5,9 @@ import { useDispatch } from "react-redux";
 import { removeUser } from "../Utils/userSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../Utils/appStore";
+import { addUser } from "../Utils/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,13 +19,31 @@ const Header = () => {
       .then(() => {
         dispatch(removeUser(null));
         // Sign-out successful.
-        navigate("/");
       })
       .catch((error) => {
         navigate("/error");
         // An error happened.
       });
   };
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          }),
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser(null));
+        navigate("/");
+      }
+    });
+  }, []);
   return (
     <div className=" w-screen absolute px-8 py-2 bg-gradient-to-b from-black  flex justify-between items-center">
       <img
