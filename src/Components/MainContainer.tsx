@@ -1,0 +1,21 @@
+import { useSelector } from "react-redux";
+import VideoBackground from "./VideoBackground";
+import VideoTitle from "./VideoTitle";
+import { RootState } from "../Utils/appStore";
+
+const MainContainer = () => {
+  const movies = useSelector((state: RootState) => state.movies.nowPlaying);
+
+  if (!movies) return null;
+
+  const mainMovie = movies[0];
+  console.log("Main movie:", mainMovie);
+  const { original_title, overview } = mainMovie;
+  return (
+    <div>
+      <VideoTitle title={original_title} overview={overview} />
+      <VideoBackground />
+    </div>
+  );
+};
+export default MainContainer;
