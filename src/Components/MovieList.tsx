@@ -1,6 +1,16 @@
 import MovieCard from "./MovieCard";
 
-const MovieList = ({ title, movies }) => {
+type Movie = {
+  id: number;
+  poster_path: string | null;
+};
+
+type MovieListProps = {
+  title: string;
+  movies: Movie[] | null;
+};
+
+const MovieList = ({ title, movies }: MovieListProps) => {
   if (!movies || movies.length === 0) return null;
 
   return (
