@@ -47,7 +47,7 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className=" w-screen absolute px-8 py-2 bg-gradient-to-r from-black  flex justify-between items-center">
+    <div className=" w-screen absolute px-8 py-2 bg-gradient-to-r from-black  flex justify-between items-center z-10">
       <img
         src={Logo}
         alt="Logo"
