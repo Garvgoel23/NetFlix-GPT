@@ -3,7 +3,7 @@ import { API_Options } from "../Utils/constants";
 import { addTrailerVideo } from "../Utils/moviesSlice";
 import { useEffect } from "react";
 
-const useMovieTrailer = (movieId) => {
+const useMovieTrailer = (movieId: number) => {
   const dispatch = useDispatch();
   const getMovieVideo = async () => {
     const data = await fetch(
