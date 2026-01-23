@@ -16,6 +16,9 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((store: RootState) => store.user);
+  const showGptSearch = useSelector(
+    (store: RootState) => store.gpt.showGptSearch,
+  );
   const handleSignOut = () => {
     // Sign-out logic here
     signOut(auth)
@@ -66,22 +69,24 @@ const Header = () => {
 
       {user && (
         <div className=" flex p-2 space-x-4">
-          <select
-            className="bg-gray-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700 transition duration-300 float-right mt-4"
-            onChange={handleLanguageChange}
-          >
-            {languages.map((lang) => (
-              <option key={lang.identifier} value={lang.identifier}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
+          {showGptSearch && (
+            <select
+              className="bg-gray-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700 transition duration-300 float-right mt-4"
+              onChange={handleLanguageChange}
+            >
+              {languages.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
 
           <button
             className="bg-red-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-700 transition duration-300 float-right mt-4 "
             onClick={handleGptSearchClick}
           >
-            GPT SEARCH
+            {showGptSearch ? "Home" : "GPT SEARCH"}
           </button>
 
           <img

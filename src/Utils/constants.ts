@@ -21,3 +21,5 @@ export const languages = [
   { identifier: "en", name: "English" },
   { identifier: "hindi", name: "Hindi" },
 ];
+
+export const GEMINIOPENAI_KEY = process.env.REACT_APP_GEMINI_KEY;
