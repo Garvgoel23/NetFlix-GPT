@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Utils/appStore";
 import lang from "../Utils/languageConstants";
 import { useRef } from "react";
-import getGeminiResponse from "./gemini";
+import getGeminiResponse from "../Utils/gemini";
 import { API_Options } from "../Utils/constants";
 import { addGptMovieResult } from "../Utils/gptSlice";
 
