@@ -11,7 +11,7 @@ const GptSearchBar: React.FC = () => {
   const selectedLang = useSelector((state: RootState) => state.config.lang);
   const searchText = useRef<HTMLInputElement | null>(null);
 
-  const searchMovieTMDB = async (movie) => {
+  const searchMovieTMDB = async (movie: any) => {
     const response = await fetch(
       "https://api.themoviedb.org/3/search/movie?query=" +
         movie +
