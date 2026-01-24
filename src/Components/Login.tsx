@@ -89,7 +89,7 @@ const Login = () => {
         <img
           src={BgLogo}
           alt="Background"
-          className="w-full h-screen object-cover"
+          className="sm:fixed w-full h-screen object-cover"
         />
       </div>
 
