@@ -89,7 +89,7 @@ const Header = () => {
           <img
             src={UserIcon}
             alt="Usericon"
-            className="w-10 h-10 rounded cursor-pointer float-right mt-4"
+            className="hidden md:block w-10 h-10 rounded cursor-pointer float-right mt-4"
           />
           <button
             onClick={handleSignOut}
